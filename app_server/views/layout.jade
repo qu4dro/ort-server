@@ -6,25 +6,29 @@ html
     link(rel='stylesheet' href='/bootstrap/css/bootstrap.css')
     link(rel='stylesheet' href='/stylesheets/style.css')
   body
-    nav.navbar.fixed-top.navbar-default
+   .navbar.navbar-default.navbar-fixed-top
       .container
-        a.navbar-brand(href='/') Where to work
-        button.navbar-toggler(type='button', data-toggle='default', data-target='#navbar-main')
-          span.navbar-toggler-icon
+        .navbar-header
+          a.navbar-brand(href='/') WORK
+          button.navbar-toggle(type='button', data-toggle='default', data-target='#navbar-main')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
         #navbar-main.navbar-default.default
-          ul.navbar-nav.nav
-            li.nav-item
-              a.nav-link(href='/about/') About
+          ul.nav.navbar-nav
+            li
+              a(href='/about/') About
 
-    .container.content
-      block content
+      .container
+        block content
 
-      footer
-        .row
-          .col-12
-            small &copy; Orlov Peter 2020
+        footer
+          .row
+            .col-xs-12
+              small &copy; Орлов Петр 2020
 
-  script(src='/javascripts/jquery-1.12.4.js')
-  script(src='/bootstrap/js/bootstrap.min.js')
+
+      script(src='/javascripts/jquery-1.12.4.js')
+      script(src='/bootstrap/js/bootstrap.min.js')
 
 
