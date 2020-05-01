@@ -1,5 +1,6 @@
 @import url("//fonts.googleapis.com/css?family=Lobster|Cabin:400,700");
 @import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 :root {
   --blue: #2C3E50;
   --indigo: #6610f2;
@@ -333,8 +334,9 @@ html {
 }
 
 body {
-  font-family: "Cabin", Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 14px;
+  font-weight: 400;
   line-height: 1.428571429;
   color: #212529;
   background-color: #ffffff;
@@ -357,7 +359,7 @@ textarea {
 }
 
 a {
-  color: #e8d069;
+  color: #ffffff;
   text-decoration: none;
 }
 
@@ -495,7 +497,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: "Cabin", Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 500;
   line-height: 1.1;
 }
@@ -514,7 +516,7 @@ h6 small,
 .h6 small {
   font-weight: normal;
   line-height: 1;
-  color: #bbbbbb;
+  color: #000000;
 }
 
 h1,
@@ -758,7 +760,7 @@ address {
 
 code,
 pre {
-  font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+  font-family: 'Roboto', sans-serif;
 }
 
 code {
@@ -4730,8 +4732,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-default {
-  background-color: #ad1d28;
-  border-color: #911821;
+  background-color: #3498DB;
+  border-color: #000000;
 }
 
 .navbar-default .navbar-brand {
@@ -4755,14 +4757,14 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
   color: #ffffff;
-  background-color: #d92432;
+  background-color: #3498DB;
 }
 
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
   color: #ffffff;
-  background-color: #d92432;
+  background-color: #3498DB;
 }
 
 .navbar-default .navbar-nav > .disabled > a,
@@ -4773,12 +4775,12 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-default .navbar-toggle {
-  border-color: #d92432;
+  border-color: #3498DB;
 }
 
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
-  background-color: #d92432;
+  background-color: #3498DB;
 }
 
 .navbar-default .navbar-toggle .icon-bar {
@@ -4787,7 +4789,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
-  border-color: #8e1821;
+  border-color: rgb(33, 134, 201);
 }
 
 .navbar-default .navbar-nav > .dropdown > a:hover .caret,
@@ -4800,7 +4802,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
   color: #ffffff;
-  background-color: #d92432;
+  background-color: #3498DB;
 }
 
 .navbar-default .navbar-nav > .open > a .caret,
@@ -4822,13 +4824,13 @@ textarea.input-group-sm > .input-group-btn > .btn {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
     color: #ffffff;
-    background-color: #d92432;
+    background-color: #3498DB;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
     color: #ffffff;
-    background-color: #d92432;
+    background-color: #3498DB;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a,
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover,
@@ -5633,7 +5635,7 @@ a.thumbnail:focus {
   display: block;
   padding: 10px 15px;
   margin-bottom: -1px;
-  background-color: transparent;
+  background-color: #3498DB;
   border: 1px solid #0d747c;
 }
 
@@ -5667,7 +5669,7 @@ a.list-group-item .list-group-item-heading {
 a.list-group-item:hover,
 a.list-group-item:focus {
   text-decoration: none;
-  background-color: #15b5c1;
+  background-color: #3498DB;
 }
 
 .list-group-item.active,
@@ -5675,7 +5677,7 @@ a.list-group-item:focus {
 .list-group-item.active:focus {
   z-index: 2;
   color: #ffffff;
-  background-color: #15b5c1;
+  background-color: #3498DB;
   border-color: #0d747c;
 }
 
@@ -5845,7 +5847,7 @@ a.list-group-item:focus {
 }
 
 .panel-default {
-  border-color: #0d747c;
+  border-color: #3498DB;
 }
 
 .panel-default > .panel-heading {
@@ -5855,7 +5857,7 @@ a.list-group-item:focus {
 }
 
 .panel-default > .panel-heading + .panel-collapse .panel-body {
-  border-top-color: #0d747c;
+  border-top-color: #3498DB;
 }
 
 .panel-default > .panel-footer + .panel-collapse .panel-body {
@@ -7262,7 +7264,8 @@ td.visible-print {
 }
 
 .navbar-brand {
-  font-family: 'Lobster', cursive;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
 }
 
 .btn .caret {
@@ -7283,7 +7286,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Lobster', cursive;
+  font-family: 'Roboto', sans-serif;
 }
 
 .text-primary {
@@ -7337,7 +7340,7 @@ h6 {
 }
 
 legend {
-  font-family: 'Lobster', cursive;
+  font-family: 'Roboto', sans-serif;
   color: #fff;
 }
 
@@ -7354,7 +7357,7 @@ legend {
 }
 
 .list-group-item {
-  background-color: #13a0aa;
+  background-color: #3498DB;
 }
 
 .popover {

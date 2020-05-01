@@ -1,31 +1,27 @@
 extends layout
+include includes/functions
+
 
 block content
   #banner.page-header
     .row
       .col-lg-6
-        h1 Where to work
-          small &nbsp; Поиск мест рядом!
+        h1= header.title
+          small &nbsp; #{header.string}
   .row
     .col-xs-12.col-sm-8
       .row.list-group
-        .col-xs-12.list-group-item
-          h4
-            a(href="/location") Кофейня
-            small &nbsp;
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star-empty
-              span.glyphicon.glyphicon-star-empty
-            span.badge.pull-right.badge-default 1000m
-          p.address Юбилейный 27
-          p
-            span.label.label-warning Еда
-            | &nbsp;
-            span.label.label-warning Напитки
-            | &nbsp;
-            span.label.label-warning Вайфай
-            | &nbsp;
+        each location in locations
+          .col-xs-12.list-group-item
+            h4
+              a(href="/location")= location.name
+              small &nbsp;
+                +setStars(location.stars)
+              span.badge.pull-right.badge-default= location.range
+            p.address= location.address
+            p
+              each service in location.services
+                span.label.label-warning= service
+                &nbsp;
     .col-xs-12.col-sm-4
-      p.lead Поиск мест рядом! Поиск мест рядом! Поиск мест рядом! Поиск мест рядом! Поиск мест рядом! Поиск мест рядом! Поиск мест рядом! Поиск мест рядом!
+      p.lead= sideText
