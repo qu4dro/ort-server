@@ -1,9 +1,9 @@
 module.exports.locationsList = function(req, res) {
-    res.render('locations-list', { title: 'LocationsList'});
+    res.render('locationsList', { title: 'Список мест'});
 };
 module.exports.locationInfo = function(req, res) {
-    res.render('index', { title: 'LocationInfo'});
+    res.render('locationInfo', { title: 'Информания о месте'});
 };
 module.exports.addReview = function(req, res) {
-    res.render('index', { title: 'addReview'});
+    res.render('locationReview', { title: 'Добавить отзыв'});
 };

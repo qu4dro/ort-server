@@ -3,13 +3,13 @@ html
   head
     meta(name='viewport' content='width=device-width, initial-scale=1.0')
     title= title
-    link(rel='stylesheet' href='/bootstrap/css/bootstrap.css')
+    link(rel='stylesheet' href='/bootstrap/css/amelia.bootstrap.css')
     link(rel='stylesheet' href='/stylesheets/style.css')
   body
-   .navbar.navbar-default.navbar-fixed-top
+    .navbar.navbar-default.navbar-fixed-top
       .container
         .navbar-header
-          a.navbar-brand(href='/') WORK
+          a.navbar-brand(href='/') ORT
           button.navbar-toggle(type='button', data-toggle='default', data-target='#navbar-main')
             span.icon-bar
             span.icon-bar
@@ -17,18 +17,18 @@ html
         #navbar-main.navbar-default.default
           ul.nav.navbar-nav
             li
-              a(href='/about/') About
+              a(href='/about/') Информация
 
-      .container
-        block content
+    .container
+      block content
 
-        footer
-          .row
-            .col-xs-12
-              small &copy; Орлов Петр 2020
+      footer
+        .row
+          .col-xs-12
+            small &copy; Орлов Петр 2020
 
 
-      script(src='/javascripts/jquery-1.12.4.js')
-      script(src='/bootstrap/js/bootstrap.min.js')
+    script(src='/javascripts/jquery-1.12.4.js')
+    script(src='/bootstrap/js/bootstrap.min.js')
 
 
