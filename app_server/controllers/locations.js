@@ -29,8 +29,45 @@ module.exports.locationsList = function(req, res) {
     });
 };
 module.exports.locationInfo = function(req, res) {
-    res.render('locationInfo', { title: 'Информания о месте'});
+    res.render('locationInfo', { 
+        title: 'Информания о месте',
+        header: {title: 'Информация о месте'},
+
+        sideText: {firstBlock: 'какой-то текст', secondBlock: 'еще текст'},
+        location: {
+            name: 'Кофейня',
+            address: 'Юбилейный 65',
+            stars: 3, 
+            services: ['Еда, напитки, WIFI'],
+            coordinates: {lat: 52.222977 , lng: 104.299971},
+            workingTime: [{
+                days: 'Ежедневно',
+                openTime: '9:00',
+                closeTime: '20:00',
+                isClosed: false
+            }, {
+                days: 'Ежедневно'
+            }],
+            reviews: [{
+                author: 'Петр Петров',
+                date: '20 Июня 2020',
+                text: 'Отличное место!',
+                stars: 5
+            }, {
+                author: 'Иван Иванов',
+                date: '18 Августа 2020',
+                text: 'Плохое место!',
+                stars: 3
+
+            }]
+        }
+
+        
+     });
 };
 module.exports.addReview = function(req, res) {
-    res.render('locationReview', { title: 'Добавить отзыв'});
+    res.render('locationReview', { 
+        title: 'Добавить отзыв',
+        header: {title: 'Отзыв название'}
+    });
 };
