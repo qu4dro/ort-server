@@ -1,0 +1,40 @@
+db.locations.save({
+    name: 'Кофейня',
+    address: 'Юбилейный 23',
+    stars: 3,
+    services: ['Еда', 'Напитки', 'ВайФай'],
+    coordinates: [104.299971, 52.222977],
+    workingTime: [{
+        days: 'Понедельник - Пятница',
+        openTime: '6:00',
+        closeTime: '22:00',
+        isClosed: false
+    }, {
+        days: 'Суббота - Воскресение',
+        openTime: '8:00',
+        closeTime: '20:00',
+        isClosed: false
+    }]
+})
+
+db.locations.update({
+    name: 'Кофейня'
+}, {
+    $push: {
+        reviews: [{
+            author: 'Иванов Иван',
+            date: new Date("20 Марта 2020"),
+            text: "Плохо",
+            stars: 3,
+            id: ObjectId()
+        
+    }, {
+        author: 'Орел Орлов',
+            date: new Date("25 Марта 2020"),
+            text: "Так себе",
+            stars: 3,
+            id: ObjectId()
+    }]
+    }
+    
+})

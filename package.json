@@ -15,6 +15,7 @@
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "mongodb": "^3.5.7",
+    "mongodb-connection-model": "^16.0.0",
     "mongoose": "^5.9.11",
     "morgan": "~1.9.1",
     "readline": "0.0.x"

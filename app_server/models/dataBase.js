@@ -2,6 +2,12 @@ var mongoose = require('mongoose');
 var readLine = require('readline');
 var softShutdown;
 var dataBaseURI = 'mongodb://localhost/ort';
+console.log(dataBaseURI);
+if (process.env.NODE_ENV === 'production') {
+    dataBaseURI = process.env.MONGOLAB_URI;
+    console.log(dataBaseURI);
+    
+}
 
 mongoose.connect(dataBaseURI);
 

@@ -25,5 +25,6 @@ var locationMongooseSchema = new mongoose.Schema({
     coordinates: {type: [Number], index: '2dsphere'},
     workingTime: [workingTimeMongooseSchema],
     reviews: [reviewsMongooseSchema]
-
 });
+
+mongoose.model('Location', locationMongooseSchema);
