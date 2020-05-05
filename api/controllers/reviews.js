@@ -6,6 +6,7 @@ var response = function(res, status, content) {
     res.json(content);
 };
 
+//получить отзыв
 module.exports.getReview = function (req, res) {
     if (req.params.reviewId && req.params && req.params.locationId) {
         locationModel.findById(req.params.locationId).select('name reviews').exec(function(err, location) {
@@ -45,12 +46,90 @@ module.exports.getReview = function (req, res) {
         console.log("404 request without locationId and reviewId");
     }
 };
+
+//добавить отзыв
 module.exports.addReview = function (req, res) {
-    response(res, 200, {"status" : "успешно"});
+    var currentLocationId = req.params.locationId;
+    if (currentLocationId) {
+        locationModel.findById(currentLocationId).select('reviews').exec(function(err, location) {
+            if(err) {
+                response(res, 400, err);
+            } else {
+                addReviewFromForm(req, res, location);
+            }
+        });
+    } else {
+        response(res, 404, {"message": "нужен id локации"});
+    }
+
+    // response(res, 200, {"status" : "успешно"});
 };
+
+
+
+
+
 module.exports.updateReview = function (req, res) {
     response(res, 200, {"status" : "успешно"});
 };
 module.exports.deleteReview = function (req, res) {
     response(res, 200, {"status" : "успешно"});
+};
+
+//вспомогательные функции
+//добавление нового поддокумента и его сохранение
+var addReviewFromForm = function(req, res, location) {
+    if(!location) {
+        response(res, 404, {"message": "локация не найдена"});
+    } else {
+        location.review.push({
+            author: req.body.author,
+            text: req.body.text,
+            stars: req.body.stars
+        });
+        location.save(function(err, location) {
+            var currentReview;
+            if (err) {
+                response(res, 400, err);
+            } else {
+                updateAndSetAvgStars(location._id);
+                currentReview = location.reviews[location.reviews.length - 1];
+                response(res, 201, currentReview);
+            }
+        });
+    }
+};
+
+//обновление звезд локации
+var updateAndSetAvgStars = function(locationId) {
+    locationModel.findById(locationId).select('stars reviews').exec(function(err, location) {
+        if (!err) {
+            setStars(location);
+        }
+    });
+};
+
+//подсчет средней оценки
+var setStars = function(location) {
+    var count;
+    var avgStars;
+    var totalStars;
+
+    if (location.reviews && location.reviews.length > 0) {
+        count = location.reviews.length;
+        totalStars = 0;
+        for (let i = 0; i < count; i++) {
+            totalStars = totalStars + location.reviews[i].stars;
+        }
+
+        avgStars = parseInt(totalStars / count, 10);
+        location.stars = avgStars;
+        location.save(function(err) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log("Звезды обновлены", avgStars);
+            }
+        });
+    }
 };

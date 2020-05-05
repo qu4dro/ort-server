@@ -103,7 +103,44 @@ module.exports.addLocations = function (req, res) {
     // response(res, 200, {"status" : "успешно"});
 };
 module.exports.updateLocation = function (req, res) {
-    response(res, 200, {"status" : "успешно"});
+    if (!req.params.locationId) {
+        response(res, 404, {"message" : "необходим id локации"});
+        return;
+    } 
+    locationModel.findById(req.params.locationId).select('-reviews -stars').exec(function(err, location) {
+        if (!location) {
+            response(res, 404, {"message": "локпция не найдена"});
+            return
+        } else if (err) {
+            response(res, 400, err);
+            return;
+        }
+        location.name = req.body.name;
+        location.address = req.body.address;
+        location.coordinates = [parseFloat(req.body.lng), parseFloat(req.body.lat)];
+        location.services = req.body.services.split(",");
+        location.workingTime = [{
+            days: req.body.daysWeekDays,
+            openTime: req.body.openTimeWeekDays,
+            closeTime: req.body.closeTimeWeekDays,
+            isClosed: req.body.isClosedWeekDays
+        }, {
+            days: req.body.daysWeekend,
+            openTime: req.body.openTimeWeekend,
+            closeTime: req.body.closeTimeWeekend,
+            isClosed: req.body.isClosedWeekend
+
+        }];
+
+        location.save(function(err, location) {
+            if (err) {
+                response(res, 404, err);
+            } else {
+                response(res, 200, location);
+            }
+        });
+    });
+    // response(res, 200, {"status" : "успешно"});
 };
 module.exports.deleteLocation = function (req, res) {
     response(res, 200, {"status" : "успешно"});
