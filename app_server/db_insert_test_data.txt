@@ -1,5 +1,5 @@
 db.locations.save({
-    name: 'Кофейня',
+    name: 'Тестовый',
     address: 'Юбилейный 23',
     stars: 3,
     services: ['Еда', 'Напитки', 'ВайФай'],
@@ -18,23 +18,16 @@ db.locations.save({
 })
 
 db.locations.update({
-    name: 'Кофейня'
+    name: 'Тестовый'
 }, {
     $push: {
-        reviews: [{
+        reviews: {
             author: 'Иванов Иван',
             date: new Date("20 Марта 2020"),
             text: "Плохо",
             stars: 3,
-            id: ObjectId()
-        
-    }, {
-        author: 'Орел Орлов',
-            date: new Date("25 Марта 2020"),
-            text: "Так себе",
-            stars: 3,
-            id: ObjectId()
-    }]
+            _id: ObjectId()
+        }
     }
-    
 })
+        

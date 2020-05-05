@@ -4,7 +4,7 @@ var router = express.Router();
 var othersController = require('../controllers/others');
 var locationsController = require('../controllers/locations')
 
-//location pages
+//страница локации
 router.get('/', locationsController.locationsList);
 router.get('/location', locationsController.locationInfo);
 router.get('/location/review/addReview', locationsController.addReview)
@@ -12,7 +12,7 @@ router.get('/location/review/addReview', locationsController.addReview)
 // /* GET home page. */
 // router.get('/', mainController.index);
 
-//other pages
+//остальные страницы
 router.get('/about', othersController.about);
 
 module.exports = router;

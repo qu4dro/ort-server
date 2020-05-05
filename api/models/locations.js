@@ -22,7 +22,7 @@ var locationMongooseSchema = new mongoose.Schema({
     address: String,
     stars: {type: Number, "default": 0, min: 0, max: 5},
     services: [String],
-    coordinates: {type: [Number], index: '2dsphere'},
+    coordinates: {type: [Number], index: '2dsphere', required: true},
     workingTime: [workingTimeMongooseSchema],
     reviews: [reviewsMongooseSchema]
 });
