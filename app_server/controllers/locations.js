@@ -87,6 +87,8 @@ module.exports.postReview = function(req, res) {
     request(requestSettings, function(err, response, body) {
         if (response.statusCode === 201) {
             res.redirect('/location/' + locationId);
+        } else if (response.statusCode === 400 && body.name && body.name === "ValidationError") {
+            res.redirect('/location/' + locationId + '/review/addReview?err=val');
         } else {
             showCurrentError(req, res, response.statusCode);
         }
@@ -131,7 +133,8 @@ var renderLocationInfo = function (req, res, body) {
 var renderAddReview = function (req, res, body) {
     res.render('locationReview', {
         title: 'Отзыв ' + body.name,
-        header: {title: "Отзыв " + body.name}
+        header: {title: "Отзыв " + body.name},
+        errorMessage: req.query.err
     });
 }
 

@@ -10,9 +10,9 @@ var workingTimeMongooseSchema = new mongoose.Schema({
 
 //схема для отзывов
 var reviewsMongooseSchema = new mongoose.Schema({
-    author: String,
+    author: {type: String, required: true},
     date: {type: Date, "default": Date.now},
-    text: String,
+    text: {type: String, required: true},
     stars: {type: Number, required: true, min: 0, max: 5}
 })
 
