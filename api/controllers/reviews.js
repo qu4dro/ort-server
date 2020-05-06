@@ -68,12 +68,81 @@ module.exports.addReview = function (req, res) {
 
 
 
-
+//обновить отзыв
 module.exports.updateReview = function (req, res) {
-    response(res, 200, {"status" : "успешно"});
+    if(!req.params.reviewId || !req.params.locationId) {
+        response(res, 404, {"message":"необходимы id локации и отзыва"});
+        return;
+    }
+    locationModel.findById(req.params.locationId).select('reviews').exec(function(err, location) {
+        var currentReview;
+        if (!location) {
+            response(res, 404, {"message": "нет такого id"});
+            return;
+        } else if (err) {
+            response(res, 404, err);
+            return;
+        }
+
+        if(location.reviews && location.reviews.length > 0) {
+            currentReview = location.reviews.id(req.params.reviewId);
+            if (!currentReview) {
+                response(res, 404, {"message": "нет такого id"});
+            } else {
+                currentReview.author = req.body.author;
+                currentReview.text = req.body.text;
+                currentReview.stars = req.body.stars;
+                location.save(function(err, location) {
+                    if (err) {
+                        response(res, 404, err);
+                    } else {
+                        updateAndSetAvgStars(location._id);
+                        response(res, 200, currentReview);
+                    }
+                });
+            }
+        } else {
+            response(res, 404, {"message": "нет такого отзыва"});
+        }
+
+    });
+    // response(res, 200, {"status" : "успешно"});
 };
+
+
 module.exports.deleteReview = function (req, res) {
-    response(res, 200, {"status" : "успешно"});
+    if (!req.params.reviewId || !req.params.locationId) {
+        response(res, 404, {"message": "необходимы id локации и отзыва"});
+        return;
+    }
+    locationModel.findById(req.params.locationId).select('reviews').exec(function(err, location) {
+        if (!location) {
+            response(res, 404, {"message": "нет id локации"});
+            return;
+        } else if (err) {
+            response(res, 404, err);
+            return;
+        }
+
+        if (location.reviews && location.reviews.length > 0) {
+            if (!location.reviews.id(req.params.reviewId)) {
+                response(res, 404, {"message": "нет такого id"}); 
+            } else {
+                location.reviews.id(req.params.reviewId).remove();
+                location.save(function(err) {
+                    if (err) {
+                        response(res, 404, err); 
+                    } else {
+                        updateAndSetAvgStars(location._id);
+                        response(res, 204, null);
+                    }
+                });
+            }
+        } else {
+            response(res, 404, {"message": "нет такого отзыва"});
+        }
+    });
+    // response(res, 200, {"status" : "успешно"});
 };
 
 //вспомогательные функции

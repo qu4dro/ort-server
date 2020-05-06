@@ -142,11 +142,23 @@ module.exports.updateLocation = function (req, res) {
     });
     // response(res, 200, {"status" : "успешно"});
 };
+
+
 module.exports.deleteLocation = function (req, res) {
-    response(res, 200, {"status" : "успешно"});
+    var currentLocationId = req.params.locationId;
+    if (currentLocationId) {
+        locationModel.findByIdAndRemove(currentLocationId).exec(function(err, location) {
+            if (err) {
+                response(res, 404, err);
+                return;
+            }
+            response(res, 204, null);
+        });
+    } else {
+        response(res, 404, {"message": "нет id локации"});
+    }
+    // response(res, 200, {"status" : "успешно"});
 };
-
-
 
 
 
