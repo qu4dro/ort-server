@@ -151,7 +151,7 @@ var addReviewFromForm = function(req, res, location) {
     if(!location) {
         response(res, 404, {"message": "локация не найдена"});
     } else {
-        location.review.push({
+        location.reviews.push({
             author: req.body.author,
             text: req.body.text,
             stars: req.body.stars

@@ -7,7 +7,8 @@ var locationsController = require('../controllers/locations')
 //страница локации
 router.get('/', locationsController.locationsList);
 router.get('/location/:locationId', locationsController.locationInfo);
-router.get('/location/review/addReview', locationsController.addReview)
+router.get('/location/:locationId/review/addReview', locationsController.addReview)
+router.post('/location/:locationId/review/addReview', locationsController.postReview)
 
 // /* GET home page. */
 // router.get('/', mainController.index);

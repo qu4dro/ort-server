@@ -2,6 +2,7 @@ var request = require('request');
 var settings = {
     server : "http://localhost:3000"
 };
+
 if (process.env.NODE_ENV === 'production') {
     settings.server = "https://orlov-where-to-work.herokuapp.com/"
 }
@@ -15,7 +16,7 @@ module.exports.locationsList = function(req, res) {
         qs: {
             lng : 104.32255,
             lat : 52.277205,
-            maxDistance : 20000
+            maxDistance : 20000000
         }
     };
 
@@ -40,18 +41,55 @@ module.exports.locationInfo = function(req, res) {
     };
     request(requestSettings, function(err, response, body) {
         var tmp = body;
-        tmp.coordinates = {
-            lng : tmp.coordinates[0],
-            lat : tmp.coordinates[1]
-        };
-        renderLocationInfo(req, res, tmp);
+        if (response.statusCode === 200) {
+            tmp.coordinates = {
+                lng : tmp.coordinates[0],
+                lat : tmp.coordinates[1]
+            };
+            renderLocationInfo(req, res, tmp);
+        } else {
+            showCurrentError(req, res, response.statusCode);
+        }
     })
-    
 };
+
 module.exports.addReview = function(req, res,) {
-    res.render('locationReview', { 
-        title: 'Добавить отзыв',
-        header: {title: 'Отзыв название'}
+    var path = '/api/locations/' + req.params.locationId;
+    var requestSettings = {
+        url : settings.server + path,
+        method : "GET",
+        json : {}
+    };
+    request(requestSettings, function(err, response, body) {
+        var tmp = body;
+        if (response.statusCode === 200) {
+            renderAddReview(req, res, tmp);
+        } else {
+            showCurrentError(req, res, response.statusCode);
+        }
+    })
+};
+
+module.exports.postReview = function(req, res) {
+    var locationId = req.params.locationId;
+    var path = "/api/locations/" + locationId + "/reviews";
+    var post = {
+        author: req.body.name,
+        text: req.body.review,
+        stars: parseInt(req.body.rating, 10)
+        
+    }
+    var requestSettings = {
+        url: settings.server + path,
+        method: "POST",
+        json: post
+    };
+    request(requestSettings, function(err, response, body) {
+        if (response.statusCode === 201) {
+            res.redirect('/location/' + locationId);
+        } else {
+            showCurrentError(req, res, response.statusCode);
+        }
     });
 };
 
@@ -90,9 +128,15 @@ var renderLocationInfo = function (req, res, body) {
      });
 }
 
+var renderAddReview = function (req, res, body) {
+    res.render('locationReview', {
+        title: 'Отзыв ' + body.name,
+        header: {title: "Отзыв " + body.name}
+    });
+}
+
 //вспомогательные функции
 //форматирование расстояния
-
 var doPrettyRange = function(range) {
     var unit = 'м';
     var formattedRange;
@@ -105,3 +149,20 @@ var doPrettyRange = function(range) {
     }
     return formattedRange + unit;
 };
+
+//отображение ошибки
+var showCurrentError = function (req, res, status) {
+    var title, text;
+    if (status !== 404) {
+        title = status;
+        text = "Вы не должны быть здесь, что-то пошло не так";
+    } else {
+        title = "404";
+        text = "Вы не должны быть здесь, такой страницы не существует";
+    }
+    res.status(status);
+    res.render('information', {
+        title: title,
+        text: text
+    });
+}
