@@ -11,7 +11,7 @@ var geoOptions = {
 module.exports.getListOfLocations = function (req, res) {
     var lng = parseFloat(req.query.lng);
     var lat = parseFloat(req.query.lat);
-    //var maxDistance = parseFloat(req.query.maxDistance);
+    var maxDistance = parseFloat(req.query.maxDistance);
     var point = {
       type: "Point",
       coordinates: [lng, lat]
@@ -19,11 +19,11 @@ module.exports.getListOfLocations = function (req, res) {
     console.log('point: ' + point)
     var geoOptions = {
       spherical: true,
-      maxDistance: theEarth.getRadsFromDistance(20),
+      maxDistance: maxDistance,
       num: 10
     };
     console.log('geoOptions: ' + geoOptions);
-    if ((!lng && lng!==0) || (!lat && lat!==0)) {
+    if ((!lng && lng!==0) || (!lat && lat!==0) || !maxDistance) {
       console.log('locationsListByDistance missing params');
       response(res, 404, {"message": "указаны не все параметры"});
       return;
@@ -35,7 +35,7 @@ module.exports.getListOfLocations = function (req, res) {
             'near': point,
             'spherical': true,
             'distanceField': 'dist.calculated',
-            // 'maxDistance': maxDistance
+            'maxDistance': maxDistance
           }
         }],
         function(err, results) {
@@ -162,29 +162,29 @@ module.exports.deleteLocation = function (req, res) {
 
 
 
-var theEarth = (function(){
-    var earthRadius = 6371;
+// var theEarth = (function(){
+//     var earthRadius = 6371;
 
-    var getDistanceFromRads = function(rads) {
-        return parseFloat(rads * earthRadius);
-    };
+//     var getDistanceFromRads = function(rads) {
+//         return parseFloat(rads * earthRadius);
+//     };
 
-    var getRadsFromDistance = function(distance) {
-        return parseFloat(distance / earthRadius);
-    };
+//     var getRadsFromDistance = function(distance) {
+//         return parseFloat(distance / earthRadius);
+//     };
 
-    return {
-        getDistanceFromRads : getDistanceFromRads,
-        getRadsFromDistance : getRadsFromDistance
-    };
-})();
+//     return {
+//         getDistanceFromRads : getDistanceFromRads,
+//         getRadsFromDistance : getRadsFromDistance
+//     };
+// })();
 
 var buildLocationList = function(req, res, results) {
     console.log('buildLocationList:');
     var locations = [];
     results.forEach(function(doc) {
         locations.push({
-          distance: doc.dist.calculated,
+          range: doc.dist.calculated,
           name: doc.name,
           address: doc.address,
           stars: doc.stars,

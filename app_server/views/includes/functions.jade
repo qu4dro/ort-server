@@ -3,3 +3,12 @@ mixin setStars(stars)
         span.glyphicon.glyphicon-star
     - for (var j = stars; j < 5; j++)
         span.glyphicon.glyphicon-star-empty
+
+mixin setPrettyDateFormat(date) 
+    -var date = new Date(date);
+    -var months = [ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+    -var day = date.getDate();
+    -var month = months[date.getMonth()];
+    -var year = date.getFullYear();
+    -var fullDate = day + ' ' + month + ' ' + year;
+    =fullDate

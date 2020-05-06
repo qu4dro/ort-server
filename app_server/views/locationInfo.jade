@@ -53,7 +53,8 @@ block content
                             span.rating
                                 +setStars(item.stars) 
                             span.reviewAuthor #{item.author}
-                            span.reviewDate #{item.date}
+                            span.reviewDate 
+                                +setPrettyDateFormat(item.date)
                         .col-xs-12
                             p !{(item.text).replace(/\n/g, '<br/>')}
               
