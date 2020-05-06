@@ -84,15 +84,21 @@ module.exports.postReview = function(req, res) {
         method: "POST",
         json: post
     };
-    request(requestSettings, function(err, response, body) {
-        if (response.statusCode === 201) {
-            res.redirect('/location/' + locationId);
-        } else if (response.statusCode === 400 && body.name && body.name === "ValidationError") {
-            res.redirect('/location/' + locationId + '/review/addReview?err=val');
-        } else {
-            showCurrentError(req, res, response.statusCode);
-        }
-    });
+
+    if (!post.author || !post.text || !post.stars) {
+        res.redirect('/location/' + locationId + '/review/addReview?err=val');
+    } else {
+        request(requestSettings, function(err, response, body) {
+            if (response.statusCode === 201) {
+                res.redirect('/location/' + locationId);
+            } else if (response.statusCode === 400 && body.name && body.name === "ValidationError") {
+                res.redirect('/location/' + locationId + '/review/addReview?err=val');
+            } else {
+                showCurrentError(req, res, response.statusCode);
+            }
+        });
+    }
+    
 };
 
 //render функции
